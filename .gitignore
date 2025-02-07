@@ -1,0 +1,49 @@
+.DS_Store
+Thumbs.bg
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+venv/
+env/
+.vurtualenv/
+
+# Django
+*.sqlite3
+db.sqlite3
+/media/
+staticfiles/
+static/
+load_settings.py
+instance/
+.env
+
+# Log files
+*.log
+logs/
+debug.log
+
+# Celery
+celerybeat-schedule
+
+#IDE and redactors
+.vscode/
+.idea/
+*.iml
+
+#Testing and cache
+*.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+dist/
+build/
+site/
+pip-log.txt
+pip-delete-this-directory.txt
+
+#Docker
+docker-compose.override.yml
+.dockerignore

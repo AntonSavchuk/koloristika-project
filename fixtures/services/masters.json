@@ -1,0 +1,47 @@
+[
+    {
+        "model": "services.masters",
+        "pk": 1,
+        "fields": {
+            "name": "╨Х╨╗╨╕╨╖╨░╨▓╨╡╤В╨░",
+            "level": "╨в╨╛╨┐-╨╝╨░╤Б╤В╨╡╤А",
+            "photo": "masters/person_1.jpg"
+        }
+    },
+    {
+        "model": "services.masters",
+        "pk": 2,
+        "fields": {
+            "name": "╨Х╨║╨░╤В╨╡╤А╨╕╨╜╨░",
+            "level": "╨в╨╛╨┐-╨╝╨░╤Б╤В╨╡╤А",
+            "photo": "masters/person_2.jpg"
+        }
+    },
+    {
+        "model": "services.masters",
+        "pk": 3,
+        "fields": {
+            "name": "╨Ш╨▓╨░╨╜",
+            "level": "╨Ь╨░╤Б╤В╨╡╤А",
+            "photo": "masters/person_3.jpg"
+        }
+    },
+    {
+        "model": "services.masters",
+        "pk": 4,
+        "fields": {
+            "name": "╨Ф╨░╤А╤М╤П",
+            "level": "╨в╨╛╨┐-╨╝╨░╤Б╤В╨╡╤А",
+            "photo": "masters/person_4.jpg"
+        }
+    },
+    {
+        "model": "services.masters",
+        "pk": 5,
+        "fields": {
+            "name": "╨а╤Г╤Б╨╗╨░╨╜╨░",
+            "level": "╨Ь╨░╤Б╤В╨╡╤А",
+            "photo": "masters/person_5.jpg"
+        }
+    }
+]

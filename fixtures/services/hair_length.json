@@ -1,0 +1,23 @@
+[
+    {
+        "model": "services.hairlength",
+        "pk": 1,
+        "fields": {
+            "name": "─ю яыхў"
+        }
+    },
+    {
+        "model": "services.hairlength",
+        "pk": 2,
+        "fields": {
+            "name": "╧ю ыюярЄъш"
+        }
+    },
+    {
+        "model": "services.hairlength",
+        "pk": 3,
+        "fields": {
+            "name": "─ю яю ёр ш эшцх"
+        }
+    }
+]
