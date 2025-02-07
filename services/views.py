@@ -1,21 +1,17 @@
 from collections import defaultdict
 
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Min, Max
 from .models import Categories, Products, ProductsExample, Price, Masters
 
 def product_price(request):
     categories = Categories.objects.all()
-
     master_levels = Masters.objects.values_list("level", flat=True).distinct()
 
     category_slug = request.GET.get("category", "all")
-    price_min = request.GET.get("price_min")
-    price_max = request.GET.get("price_max")
     master_type = request.GET.get("master")
-
-    price_min = int(price_min) if price_min and price_min.isdigit() else None
-    price_max = int(price_max) if price_max and price_max.isdigit() else None
+    page = request.GET.get("page", 1)  # Получаем номер страницы (по умолчанию 1)
 
     products = Products.objects.all()
 
@@ -23,12 +19,11 @@ def product_price(request):
         products = products.filter(category__slug=category_slug)
 
     if master_type and master_type != "all":
-        filtered_prices = Price.objects.filter(masters__level__iexact=master_type)
-        products = products.filter(prices__in=filtered_prices).distinct()
+        products = products.filter(prices__masters__level__iexact=master_type).distinct()
 
     product_list = []
     for product in products:
-        is_fixed_price = False 
+        is_fixed_price = False
         final_min_price = None
         final_max_price = None
 
@@ -41,16 +36,10 @@ def product_price(request):
                 final_min_price -= (final_min_price * product.discount // 100)
 
         if not is_fixed_price:
-            if master_type and master_type != "all":
-                price_data = product.prices.filter(masters__level__iexact=master_type).aggregate(
-                    min_price=Min("min_price"),
-                    max_price=Max("max_price")
-                )
-            else:
-                price_data = product.prices.aggregate(
-                    min_price=Min("min_price"),
-                    max_price=Max("max_price")
-                )
+            price_data = product.prices.aggregate(
+                min_price=Min("min_price"),
+                max_price=Max("max_price")
+            )
 
             min_price_db = price_data["min_price"]
             max_price_db = price_data["max_price"]
@@ -63,14 +52,6 @@ def product_price(request):
         if final_max_price is None:
             final_max_price = final_min_price
 
-        if price_min is not None and final_min_price is not None:
-            if final_min_price < price_min:
-                continue  
-
-        if price_max is not None and final_max_price is not None:
-            if final_max_price > price_max:
-                continue 
-
         product_list.append({
             "product": product,
             "min_price": final_min_price,
@@ -78,15 +59,22 @@ def product_price(request):
             "is_fixed_price": is_fixed_price
         })
 
+    paginator = Paginator(product_list, 5)  
+    try:
+        current_page = paginator.page(page)
+    except PageNotAnInteger:
+        current_page = paginator.page(1) 
+    except EmptyPage:
+        current_page = paginator.page(paginator.num_pages) 
+
     context = {
-        "products": product_list,
+        "products": current_page,
         "categories": categories,
         "master_levels": master_levels,
         "selected_category": category_slug,
         "selected_master": master_type,
-        "selected_price_min": price_min if price_min is not None else "",
-        "selected_price_max": price_max if price_max is not None else "",
     }
+
     return render(request, "services/price.html", context)
 
 

@@ -2,80 +2,117 @@
 
 {% block content %}
 <div class="site-section">
-<div class="container">
-    <div class="content-wrapper">
-        <aside class="filter-sidebar">
-            
-            <h2>Фильтр</h2>
-            <form id="filter-form" method="GET">
-                <div class="filter-group">
-                    <h3>Категории</h3>
-                    <select name="category" id="category-filter">
-                        <option value="all" {% if selected_category == "all" %}selected{% endif %}>Все товары</option>
-                        {% for category in categories %}
-                            <option value="{{ category.slug }}" {% if selected_category == category.slug %}selected{% endif %}>
-                                {{ category.name }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
+    <div class="container">
+        <div class="content-wrapper">
+            <aside class="filter-sidebar">
+                <h2>Фильтр</h2>
+                <form id="filter-form" method="GET">
+                    <div class="filter-group">
+                        <h3>Категории</h3>
+                        <select name="category" id="category-filter">
+                            <option value="all" {% if selected_category == "all" %}selected{% endif %}>Все товары</option>
+                            {% for category in categories %}
+                                <option value="{{ category.slug }}" {% if selected_category == category.slug %}selected{% endif %}>
+                                    {{ category.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-                <div class="filter-group">
-                    <h3>Цена (₽)</h3>
-                    <label>От <input type="number" name="price_min" id="price-min" value="{{ selected_price_min }}"></label>
-                    <label>До <input type="number" name="price_max" id="price-max" value="{{ selected_price_max }}"></label>
-                </div>
+                    <div class="filter-group">
+                        <h3>Мастера</h3>
+                        <select name="master" id="master-filter">
+                            <option value="all" {% if selected_master == "all" %}selected{% endif %}>Все мастера</option>
+                            {% for level in master_levels %}
+                                <option value="{{ level }}" {% if selected_master == level %}selected{% endif %}>
+                                    {{ level }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-                <div class="filter-group">
-                    <h3>Мастера</h3>
-                    <select name="master" id="master-filter">
-                        <option value="all" {% if selected_master == "all" %}selected{% endif %}>Все мастера</option>
-                        {% for level in master_levels %}
-                            <option value="{{ level }}" {% if selected_master == level %}selected{% endif %}>
-                                {{ level }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
+                    <div class="filter-buttons">
+                        <button type="button" id="reset-filters" class="reset-filters">Сбросить все</button>
+                    </div>
+                </form>
+            </aside>
 
-                <div class="filter-buttons">
-                    <button type="button" id="reset-filters" class="reset-filters">Сбросить все</button>
-                </div>
-            </form>
-        </aside>
+            <main class="price-list">
+                <div id="price-content">
+                    {% if products %}
+                        <ul class="product-list">
+                            {% for item in products %}
+                                <li class="product-item">
+                                    <span class="product-name">{{ item.product.name }}</span>
+                                    <span class="price">
+                                        {% if item.is_fixed_price and item.product.discount > 0 %}
+                                            <span class="old-price">{{ item.product.base_price }} ₽</span>
+                                            <span class="new-price">{{ item.min_price }} ₽</span>
+                                        {% elif item.min_price == "Договорная" %}
+                                            <span class="new-price">Договорная</span>
+                                        {% elif item.min_price != item.max_price %}
+                                            {% if item.product.discount > 0 and item.product.base_price %}
+                                                <span class="old-price">{{ item.product.base_price }} ₽</span>
+                                                <span class="new-price">{{ item.min_price }} - {{ item.max_price }} ₽</span>
+                                            {% else %}
+                                                <span>{{ item.min_price }} - {{ item.max_price }} ₽</span>
+                                            {% endif %}
+                                        {% else %}
+                                            {% if item.product.discount > 0 %}
+                                                <span class="old-price">{{ item.product.base_price }} ₽</span>
+                                                <span class="new-price">{{ item.min_price }} ₽</span>
+                                            {% else %}
+                                                <span>от {{ item.min_price }} ₽</span>
+                                            {% endif %}
+                                        {% endif %}
+                                    </span>
+                                </li>
+                            {% endfor %}
+                        </ul>
 
+                        <div id="app" class="container">  
+                            <ul class="page">
+                                {% if products.has_previous %}
+                                    <li class="page__btn active">
+                                        <a href="?page={{ products.previous_page_number }}"> <span class="material-icons">chevron_left</span> </a>
+                                    </li>
+                                {% else %}
+                                    <li class="page__btn">
+                                        <span class="material-icons">chevron_left</span>
+                                    </li>
+                                {% endif %}
 
-
-        <main class="price-list">
-            <h1>Цены на услуги</h1>
-            <div id="price-content">
-                {% if products %}
-                    <ul class="product-list">
-                        {% for item in products %}
-                            <li class="product-item">
-                                <h2>{{ item.product.name }}</h2>
-                                <p>
-                                    Цена: 
-                                    {% if item.is_fixed_price %}
-                                        {{ item.min_price }} ₽
-                                    {% elif item.min_price == "Договорная" %}
-                                        Договорная
+                                {% for num in products.paginator.page_range %}
+                                    {% if num == products.number %}
+                                        <li class="page__numbers active">{{ num }}</li>
                                     {% else %}
-                                        от {{ item.min_price }} ₽ до {{ item.max_price }} ₽
+                                        <li class="page__numbers">
+                                            <a href="?page={{ num }}">{{ num }}</a>
+                                        </li>
                                     {% endif %}
-                                </p>
-                                <p>Категория: {{ item.product.category.name }}</p>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>Нет товаров, соответствующих фильтрам.</p>
-                {% endif %}
-            </div>
-        </main>
+                                {% endfor %}
+
+                                {% if products.has_next %}
+                                    <li class="page__btn active">
+                                        <a href="?page={{ products.next_page_number }}"> <span class="material-icons">chevron_right</span> </a>
+                                    </li>
+                                {% else %}
+                                    <li class="page__btn">
+                                        <span class="material-icons">chevron_right</span>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+
+                    {% else %}
+                        <p>Нет товаров, соответствующих фильтрам.</p>
+                    {% endif %}
+                </div>
+            </main>
+        </div>
     </div>
 </div>
-</div>
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("filter-form");
@@ -85,8 +122,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     document.getElementById("category-filter").addEventListener("change", applyFilter);
-    document.getElementById("price-min").addEventListener("blur", applyFilter);
-    document.getElementById("price-max").addEventListener("blur", applyFilter);
     document.getElementById("master-filter").addEventListener("change", applyFilter);
 
     document.getElementById("reset-filters").addEventListener("click", function() {
