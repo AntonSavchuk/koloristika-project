@@ -37,7 +37,7 @@
           <div class="col-md-6 mb-4 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|divisibleby:3|yesno:'0,100,200' }}">
             <div class="service-block text-center">
               <h3 class="product-name">
-                <a href="{% url 'services:product' category.slug product.slug%}">{{ product.name }}</a>
+                <a href="{% url 'services:product' category.slug product.slug %}">{{ product.name }}</a>
               </h3>
             </div>
           </div>

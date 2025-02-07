@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="site-section">
+<div class="container">
+    <div class="content-wrapper">
+        <aside class="filter-sidebar">
+            
+            <h2>Фильтр</h2>
+            <form id="filter-form" method="GET">
+                <div class="filter-group">
+                    <h3>Категории</h3>
+                    <select name="category" id="category-filter">
+                        <option value="all" {% if selected_category == "all" %}selected{% endif %}>Все товары</option>
+                        {% for category in categories %}
+                            <option value="{{ category.slug }}" {% if selected_category == category.slug %}selected{% endif %}>
+                                {{ category.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <h3>Цена (₽)</h3>
+                    <label>От <input type="number" name="price_min" id="price-min" value="{{ selected_price_min }}"></label>
+                    <label>До <input type="number" name="price_max" id="price-max" value="{{ selected_price_max }}"></label>
+                </div>
+
+                <div class="filter-group">
+                    <h3>Мастера</h3>
+                    <select name="master" id="master-filter">
+                        <option value="all" {% if selected_master == "all" %}selected{% endif %}>Все мастера</option>
+                        {% for level in master_levels %}
+                            <option value="{{ level }}" {% if selected_master == level %}selected{% endif %}>
+                                {{ level }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="filter-buttons">
+                    <button type="button" id="reset-filters" class="reset-filters">Сбросить все</button>
+                </div>
+            </form>
+        </aside>
+
+
+
+        <main class="price-list">
+            <h1>Цены на услуги</h1>
+            <div id="price-content">
+                {% if products %}
+                    <ul class="product-list">
+                        {% for item in products %}
+                            <li class="product-item">
+                                <h2>{{ item.product.name }}</h2>
+                                <p>
+                                    Цена: 
+                                    {% if item.is_fixed_price %}
+                                        {{ item.min_price }} ₽
+                                    {% elif item.min_price == "Договорная" %}
+                                        Договорная
+                                    {% else %}
+                                        от {{ item.min_price }} ₽ до {{ item.max_price }} ₽
+                                    {% endif %}
+                                </p>
+                                <p>Категория: {{ item.product.category.name }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Нет товаров, соответствующих фильтрам.</p>
+                {% endif %}
+            </div>
+        </main>
+    </div>
+</div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("filter-form");
+
+    function applyFilter() {
+        form.submit();
+    }
+
+    document.getElementById("category-filter").addEventListener("change", applyFilter);
+    document.getElementById("price-min").addEventListener("blur", applyFilter);
+    document.getElementById("price-max").addEventListener("blur", applyFilter);
+    document.getElementById("master-filter").addEventListener("change", applyFilter);
+
+    document.getElementById("reset-filters").addEventListener("click", function() {
+        window.location.href = window.location.pathname;
+    });
+});
+</script>
+{% endblock %}
