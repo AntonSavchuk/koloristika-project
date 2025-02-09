@@ -7,36 +7,44 @@ from .models import Categories, Products, ProductsExample, Price, Masters
 
 def product_price(request):
     categories = Categories.objects.all()
-    master_levels = Masters.objects.values_list("level", flat=True).distinct()
+    master_levels = Masters.objects.values_list("level", flat=True).order_by("level").distinct()
 
     category_slug = request.GET.get("category", "all")
-    master_type = request.GET.get("master")
-    page = request.GET.get("page", 1)  # Получаем номер страницы (по умолчанию 1)
+    master_type = request.GET.get("master", "all")
+    page = request.GET.get("page", 1)
 
     products = Products.objects.all()
 
     if category_slug != "all":
         products = products.filter(category__slug=category_slug)
 
-    if master_type and master_type != "all":
-        products = products.filter(prices__masters__level__iexact=master_type).distinct()
+    product_dict = defaultdict(list)
 
-    product_list = []
     for product in products:
         is_fixed_price = False
         final_min_price = None
         final_max_price = None
+        old_min_price = None
+        old_max_price = None
+        has_discount = product.discount > 0
 
         if product.base_price:
             is_fixed_price = True
-            final_min_price = product.base_price
-            final_max_price = product.base_price
+            final_min_price = final_max_price = product.base_price
 
-            if product.discount and product.discount > 0:
+            if has_discount:
+                old_min_price = final_min_price
+                old_max_price = final_max_price
                 final_min_price -= (final_min_price * product.discount // 100)
+                final_max_price -= (final_max_price * product.discount // 100)
 
         if not is_fixed_price:
-            price_data = product.prices.aggregate(
+            price_queryset = product.prices
+
+            if master_type != "all":
+                price_queryset = price_queryset.filter(masters__level__iexact=master_type)
+
+            price_data = price_queryset.aggregate(
                 min_price=Min("min_price"),
                 max_price=Max("max_price")
             )
@@ -49,23 +57,32 @@ def product_price(request):
             if max_price_db:
                 final_max_price = max_price_db
 
+            if has_discount and final_min_price and final_max_price:
+                old_min_price = final_min_price
+                old_max_price = final_max_price
+                final_min_price -= (final_min_price * product.discount // 100)
+                final_max_price -= (final_max_price * product.discount // 100)
+
         if final_max_price is None:
             final_max_price = final_min_price
 
-        product_list.append({
+        product_dict[product.category.name].append({
             "product": product,
             "min_price": final_min_price,
             "max_price": final_max_price,
-            "is_fixed_price": is_fixed_price
+            "old_min_price": old_min_price,
+            "old_max_price": old_max_price,
+            "is_fixed_price": is_fixed_price,
+            "has_discount": has_discount
         })
 
-    paginator = Paginator(product_list, 5)  
+    paginator = Paginator(list(product_dict.items()), 1)
     try:
         current_page = paginator.page(page)
     except PageNotAnInteger:
-        current_page = paginator.page(1) 
+        current_page = paginator.page(1)
     except EmptyPage:
-        current_page = paginator.page(paginator.num_pages) 
+        current_page = paginator.page(paginator.num_pages)
 
     context = {
         "products": current_page,
@@ -111,7 +128,6 @@ def product_detail(request, category_slug, product_slug):
 
     price_data = defaultdict(list)
 
-    # Проверяем, есть ли базовая цена у продукта (фиксированная без мастера)
     if product.base_price:
         base_discount_price = product.base_price
         if product.discount and product.discount > 0:
@@ -126,7 +142,6 @@ def product_detail(request, category_slug, product_slug):
             "discount_max": None,
         })
 
-    # Группируем цены по длине волос
     for price in prices:
         length_key = price.hair_length.name if price.hair_length else "Фиксированная цена"
         
@@ -155,13 +170,11 @@ def product_detail(request, category_slug, product_slug):
                 "discount_max": discount_max_price if discount_max_price and discount_max_price != max_price else None,
             })
 
-    print(price_data)  # Отладочный вывод для проверки данных
-
     context = {
         "title": f"KOLORISTIKA - {product.name}",
         "product": product,
         "examples": examples,
-        "prices": dict(price_data),  # Преобразуем defaultdict в обычный dict
+        "prices": dict(price_data),
     }
 
     return render(request, "services/product.html", context)

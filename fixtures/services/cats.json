@@ -3,60 +3,60 @@
     "model": "services.categories",
     "pk": 1,
     "fields": {
-        "name": "╤ЄЁшцър",
+        "name": "Стрижка",
         "slug": "haircut",
         "svg_image": "svg_images/haircut_O7a9kxF.svg",
-        "short_description": "╧юфўхЁъэ╕Є тр°є шэфштшфєры№эюёЄ№ ш ёючфрёЄ урЁьюэшўэ√щ юсЁрч."
+        "short_description": "Подчеркнёт вашу индивидуальность и создаст гармоничный образ."
     }
 },
 {
     "model": "services.categories",
     "pk": 2,
     "fields": {
-        "name": "╬ъЁр°штрэшх",
+        "name": "Окрашивание",
         "slug": "hair-dye",
         "svg_image": "svg_images/hair-dye_Jbr8X2E.svg",
-        "short_description": "╚чьхэхэшх ЎтхЄр тюыюё ё єў╕Єюь ЄЁхэфют ш яхЁёюэры№э√ї яЁхфяюўЄхэшщ."
+        "short_description": "Изменение цвета волос с учётом трендов и персональных предпочтений."
     }
 },
 {
     "model": "services.categories",
     "pk": 3,
     "fields": {
-        "name": "╙їюф√",
+        "name": "Уходы",
         "slug": "care",
         "svg_image": "svg_images/hair-care_EgQeXjr.svg",
-        "short_description": "┬юёёЄрэютыхэшх ш чр∙шЄр тюыюё ё яюью∙№■ яЁюЇхёёшюэры№э√ї яЁюЎхфєЁ."
+        "short_description": "Восстановление и защита волос с помощью профессиональных процедур."
     }
 },
 {
     "model": "services.categories",
     "pk": 4,
     "fields": {
-        "name": "┴Ёютш",
+        "name": "Брови",
         "slug": "eyebrows",
         "svg_image": "svg_images/eyebrow_HuGiVJ5.svg",
-        "short_description": "╩юЁЁхъЎш  ш юъЁр°штрэшх сЁютхщ фы  т√ЁрчшЄхы№эюую тчуы фр."
+        "short_description": "Коррекция и окрашивание бровей для выразительного взгляда."
     }
 },
 {
     "model": "services.categories",
     "pk": 5,
     "fields": {
-        "name": "╨хёэшЎ√",
+        "name": "Ресницы",
         "slug": "eyelashes",
         "svg_image": "svg_images/eyelashes_PMlMmRB.svg",
-        "short_description": "╦рьшэшЁютрэшх, эрЁр∙штрэшх ш фЁєушх яЁюЎхфєЁ√ фы  ¤ЇЇхъЄэюую тчуы фр."
+        "short_description": "Ламинирование, наращивание и другие процедуры для эффектного взгляда."
     }
 },
 {
     "model": "services.categories",
     "pk": 6,
     "fields": {
-        "name": "╩юэёєы№ЄрЎш ",
+        "name": "Консультация",
         "slug": "consultation",
         "svg_image": "svg_images/consultation_5XXYzyr.svg",
-        "short_description": "╧юфсюЁ ёЄшы , ЎтхЄр ш яЁюЎхфєЁ фы  фюёЄшцхэш  цхырхьюую Ёхчєы№ЄрЄр."
+        "short_description": "Подбор стиля, цвета и процедур для достижения желаемого результата."
     }
 }
 ]

@@ -28,7 +28,7 @@
                                     {{ level }}
                                 </option>
                             {% endfor %}
-                        </select>
+                        </select>                        
                     </div>
 
                     <div class="filter-buttons">
@@ -40,35 +40,42 @@
             <main class="price-list">
                 <div id="price-content">
                     {% if products %}
-                        <ul class="product-list">
-                            {% for item in products %}
-                                <li class="product-item">
-                                    <span class="product-name">{{ item.product.name }}</span>
-                                    <span class="price">
-                                        {% if item.is_fixed_price and item.product.discount > 0 %}
-                                            <span class="old-price">{{ item.product.base_price }} ₽</span>
-                                            <span class="new-price">{{ item.min_price }} ₽</span>
-                                        {% elif item.min_price == "Договорная" %}
-                                            <span class="new-price">Договорная</span>
-                                        {% elif item.min_price != item.max_price %}
-                                            {% if item.product.discount > 0 and item.product.base_price %}
-                                                <span class="old-price">{{ item.product.base_price }} ₽</span>
-                                                <span class="new-price">{{ item.min_price }} - {{ item.max_price }} ₽</span>
+                        {% for category, items in products %}
+                            <h2 class="category-title">{{ category }}</h2>
+                            <ul class="product-list">
+                                {% for item in items %}
+                                    <li class="product-item">
+                                        <span class="product-name">{{ item.product.name }}</span>
+                                        <span class="price">
+                                            {% if item.has_discount %}
+                                                <span class="old-price">
+                                                    {% if item.old_min_price != item.old_max_price %}
+                                                        {{ item.old_min_price }} - {{ item.old_max_price }} ₽
+                                                    {% else %}
+                                                        {{ item.old_min_price }} ₽
+                                                    {% endif %}
+                                                </span>
+                                                <span class="new-price">
+                                                    {% if item.min_price != item.max_price %}
+                                                        {{ item.min_price }} - {{ item.max_price }} ₽
+                                                    {% else %}
+                                                        {{ item.min_price }} ₽
+                                                    {% endif %}
+                                                </span>
                                             {% else %}
-                                                <span>{{ item.min_price }} - {{ item.max_price }} ₽</span>
+                                                <span>
+                                                    {% if item.min_price != item.max_price %}
+                                                        {{ item.min_price }} - {{ item.max_price }} ₽
+                                                    {% else %}
+                                                        {{ item.min_price }} ₽
+                                                    {% endif %}
+                                                </span>
                                             {% endif %}
-                                        {% else %}
-                                            {% if item.product.discount > 0 %}
-                                                <span class="old-price">{{ item.product.base_price }} ₽</span>
-                                                <span class="new-price">{{ item.min_price }} ₽</span>
-                                            {% else %}
-                                                <span>от {{ item.min_price }} ₽</span>
-                                            {% endif %}
-                                        {% endif %}
-                                    </span>
-                                </li>
-                            {% endfor %}
-                        </ul>
+                                        </span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endfor %}
 
                         <div id="app" class="container">  
                             <ul class="page">
@@ -76,29 +83,17 @@
                                     <li class="page__btn active">
                                         <a href="?page={{ products.previous_page_number }}"> <span class="material-icons">chevron_left</span> </a>
                                     </li>
-                                {% else %}
-                                    <li class="page__btn">
-                                        <span class="material-icons">chevron_left</span>
-                                    </li>
                                 {% endif %}
 
                                 {% for num in products.paginator.page_range %}
-                                    {% if num == products.number %}
-                                        <li class="page__numbers active">{{ num }}</li>
-                                    {% else %}
-                                        <li class="page__numbers">
-                                            <a href="?page={{ num }}">{{ num }}</a>
-                                        </li>
-                                    {% endif %}
+                                    <li class="page__numbers {% if num == products.number %}active{% endif %}">
+                                        <a href="?page={{ num }}">{{ num }}</a>
+                                    </li>
                                 {% endfor %}
 
                                 {% if products.has_next %}
                                     <li class="page__btn active">
                                         <a href="?page={{ products.next_page_number }}"> <span class="material-icons">chevron_right</span> </a>
-                                    </li>
-                                {% else %}
-                                    <li class="page__btn">
-                                        <span class="material-icons">chevron_right</span>
                                     </li>
                                 {% endif %}
                             </ul>

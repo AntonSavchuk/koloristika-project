@@ -1,0 +1,605 @@
+[
+{
+    "model": "services.price",
+    "pk": 4,
+    "fields": {
+        "product": 2,
+        "hair_length": null,
+        "min_price": 1500,
+        "max_price": 1800,
+        "masters": [
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 5,
+    "fields": {
+        "product": 3,
+        "hair_length": null,
+        "min_price": 2000,
+        "max_price": 2500,
+        "masters": [
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 6,
+    "fields": {
+        "product": 1,
+        "hair_length": null,
+        "min_price": 300,
+        "max_price": 500,
+        "masters": [
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 7,
+    "fields": {
+        "product": 4,
+        "hair_length": null,
+        "min_price": 1000,
+        "max_price": 1400,
+        "masters": [
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 8,
+    "fields": {
+        "product": 7,
+        "hair_length": 1,
+        "min_price": 4500,
+        "max_price": 5500,
+        "masters": [
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 9,
+    "fields": {
+        "product": 7,
+        "hair_length": 2,
+        "min_price": 6000,
+        "max_price": 8000,
+        "masters": [
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 10,
+    "fields": {
+        "product": 7,
+        "hair_length": 3,
+        "min_price": 8500,
+        "max_price": 10000,
+        "masters": [
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 11,
+    "fields": {
+        "product": 9,
+        "hair_length": 1,
+        "min_price": 10000,
+        "max_price": 12000,
+        "masters": [
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 12,
+    "fields": {
+        "product": 9,
+        "hair_length": 2,
+        "min_price": 13000,
+        "max_price": 18000,
+        "masters": [
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 13,
+    "fields": {
+        "product": 9,
+        "hair_length": 3,
+        "min_price": 20000,
+        "max_price": 25000,
+        "masters": [
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 14,
+    "fields": {
+        "product": 6,
+        "hair_length": 1,
+        "min_price": 8500,
+        "max_price": 10000,
+        "masters": [
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 15,
+    "fields": {
+        "product": 6,
+        "hair_length": 2,
+        "min_price": 10000,
+        "max_price": 15000,
+        "masters": [
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 16,
+    "fields": {
+        "product": 6,
+        "hair_length": 3,
+        "min_price": 18000,
+        "max_price": 20000,
+        "masters": [
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 17,
+    "fields": {
+        "product": 10,
+        "hair_length": 1,
+        "min_price": 8500,
+        "max_price": 11500,
+        "masters": [
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 18,
+    "fields": {
+        "product": 10,
+        "hair_length": 2,
+        "min_price": 10500,
+        "max_price": 16000,
+        "masters": [
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 19,
+    "fields": {
+        "product": 10,
+        "hair_length": 3,
+        "min_price": 12500,
+        "max_price": 20000,
+        "masters": [
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 20,
+    "fields": {
+        "product": 3,
+        "hair_length": null,
+        "min_price": 1600,
+        "max_price": 2000,
+        "masters": [
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 21,
+    "fields": {
+        "product": 7,
+        "hair_length": 1,
+        "min_price": 1800,
+        "max_price": 4400,
+        "masters": [
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 22,
+    "fields": {
+        "product": 9,
+        "hair_length": 1,
+        "min_price": 8000,
+        "max_price": 9600,
+        "masters": [
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 23,
+    "fields": {
+        "product": 9,
+        "hair_length": 2,
+        "min_price": 10400,
+        "max_price": 15000,
+        "masters": [
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 24,
+    "fields": {
+        "product": 9,
+        "hair_length": 3,
+        "min_price": 16000,
+        "max_price": 20000,
+        "masters": [
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 25,
+    "fields": {
+        "product": 7,
+        "hair_length": 2,
+        "min_price": 4800,
+        "max_price": 6400,
+        "masters": [
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 26,
+    "fields": {
+        "product": 7,
+        "hair_length": 3,
+        "min_price": 6500,
+        "max_price": 8000,
+        "masters": [
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 27,
+    "fields": {
+        "product": 6,
+        "hair_length": 1,
+        "min_price": 6800,
+        "max_price": 8000,
+        "masters": [
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 28,
+    "fields": {
+        "product": 6,
+        "hair_length": 2,
+        "min_price": 8000,
+        "max_price": 12000,
+        "masters": [
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 29,
+    "fields": {
+        "product": 6,
+        "hair_length": 3,
+        "min_price": 14400,
+        "max_price": 16000,
+        "masters": [
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 30,
+    "fields": {
+        "product": 10,
+        "hair_length": 1,
+        "min_price": 7200,
+        "max_price": 9500,
+        "masters": [
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 31,
+    "fields": {
+        "product": 10,
+        "hair_length": 2,
+        "min_price": 9600,
+        "max_price": 13600,
+        "masters": [
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 32,
+    "fields": {
+        "product": 10,
+        "hair_length": 3,
+        "min_price": 13600,
+        "max_price": 18000,
+        "masters": [
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 33,
+    "fields": {
+        "product": 19,
+        "hair_length": 1,
+        "min_price": 5500,
+        "max_price": 6500,
+        "masters": [
+            3,
+            5,
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 34,
+    "fields": {
+        "product": 19,
+        "hair_length": 2,
+        "min_price": 7500,
+        "max_price": 9500,
+        "masters": [
+            3,
+            5,
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 35,
+    "fields": {
+        "product": 19,
+        "hair_length": 3,
+        "min_price": 11000,
+        "max_price": 15000,
+        "masters": [
+            3,
+            5,
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 36,
+    "fields": {
+        "product": 21,
+        "hair_length": 1,
+        "min_price": 7000,
+        "max_price": null,
+        "masters": [
+            3,
+            5,
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 37,
+    "fields": {
+        "product": 21,
+        "hair_length": 2,
+        "min_price": 12000,
+        "max_price": null,
+        "masters": [
+            3,
+            5,
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 38,
+    "fields": {
+        "product": 21,
+        "hair_length": 3,
+        "min_price": 17000,
+        "max_price": null,
+        "masters": [
+            3,
+            5,
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 39,
+    "fields": {
+        "product": 23,
+        "hair_length": 1,
+        "min_price": 3500,
+        "max_price": 5500,
+        "masters": [
+            3,
+            5,
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 40,
+    "fields": {
+        "product": 23,
+        "hair_length": 2,
+        "min_price": 5500,
+        "max_price": 7500,
+        "masters": [
+            3,
+            5,
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 41,
+    "fields": {
+        "product": 23,
+        "hair_length": 3,
+        "min_price": 8500,
+        "max_price": 10000,
+        "masters": [
+            3,
+            5,
+            4,
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 45,
+    "fields": {
+        "product": 2,
+        "hair_length": null,
+        "min_price": 1200,
+        "max_price": 1600,
+        "masters": [
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "services.price",
+    "pk": 46,
+    "fields": {
+        "product": 1,
+        "hair_length": null,
+        "min_price": 200,
+        "max_price": 400,
+        "masters": [
+            3,
+            5
+        ]
+    }
+}
+]

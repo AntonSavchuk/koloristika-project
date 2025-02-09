@@ -1,23 +1,23 @@
 [
-    {
-        "model": "services.hairlength",
-        "pk": 1,
-        "fields": {
-            "name": "─ю яыхў"
-        }
-    },
-    {
-        "model": "services.hairlength",
-        "pk": 2,
-        "fields": {
-            "name": "╧ю ыюярЄъш"
-        }
-    },
-    {
-        "model": "services.hairlength",
-        "pk": 3,
-        "fields": {
-            "name": "─ю яю ёр ш эшцх"
-        }
+{
+    "model": "services.hairlength",
+    "pk": 1,
+    "fields": {
+        "name": "По плечи"
     }
+},
+{
+    "model": "services.hairlength",
+    "pk": 2,
+    "fields": {
+        "name": "по лопатки"
+    }
+},
+{
+    "model": "services.hairlength",
+    "pk": 3,
+    "fields": {
+        "name": "по пояс и ниже"
+    }
+}
 ]
