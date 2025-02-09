@@ -6,7 +6,7 @@ class Categories(models.Model):
         max_length=150, unique=True, verbose_name='Название'
     )
     slug = models.SlugField(
-        max_length=200, verbose_name='URL', unique=True
+        max_length=200, verbose_name='URL', unique=True, null=True, blank=True
     )
     svg_image = models.FileField(
         upload_to='svg_images', blank=True, null=True, verbose_name='Фото'
@@ -69,10 +69,10 @@ class HairLength(models.Model):
 
 class Products(models.Model):
     name = models.CharField(
-        max_length=150, unique=True, verbose_name='Название'\
+        max_length=150, unique=True, verbose_name='Название'
     )
     slug = models.SlugField(
-        max_length=200, verbose_name='URL', unique=True,
+        max_length=200, verbose_name='URL', unique=True, blank=True, null=True
     )
     description = models.TextField(
         blank=True, null=True, verbose_name='Описание товара'
@@ -88,6 +88,9 @@ class Products(models.Model):
     )
     base_price = models.PositiveIntegerField(
         blank=True, null=True, verbose_name="Фиксированная цена"
+    )
+    show_on_homepage = models.BooleanField(
+        default=False, verbose_name="Показывать на главной"
     )
                                     
     class Meta:
@@ -144,7 +147,6 @@ class Price(models.Model):
         verbose_name = "цену"
         verbose_name_plural = "цены"
         ordering = ['product__name', 'min_price']
-        unique_together = ('product', 'hair_length')
 
     def __str__(self):
         return f"{self.product.name} ({self.hair_length or 'Без длины'}) - {self.min_price} ₽ - {self.max_price} ₽"
