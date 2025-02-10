@@ -24,6 +24,7 @@ from . import settings
 urlpatterns = [
     path("", include("main.urls", namespace='main')),
     path("services/", include("services.urls", namespace='services')),
+    path('user/', include("users.urls", namespace='users')),
     path("admin/", admin.site.urls),
 ]
 
