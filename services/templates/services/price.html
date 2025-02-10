@@ -77,40 +77,41 @@
                                 {% endfor %}
                             </ul>
                         {% endfor %}
-
-                        <div id="app" class="container">  
-                            <ul class="page">
-                                {% if products.has_previous %}
-                                    <li class="page__btn active">
-                                        <a href="{% preserve_query_params page=products.previous_page_number %}">
-                                            <span class="material-icons">chevron_left</span>
-                                        </a>
-                                    </li>
-                                {% endif %}
-                        
-                                {% for num in products.paginator.page_range %}
-                                    <li class="page__numbers {% if num == products.number %}active{% endif %}">  
-                                        <a href="{% preserve_query_params page=num %}">{{ num }}</a>
-                                    </li>
-                                {% endfor %}
-                        
-                                {% if products.has_next %}
-                                    <li class="page__btn active">
-                                        <a href="{% preserve_query_params page=products.next_page_number %}">
-                                            <span class="material-icons">chevron_right</span>
-                                        </a>
-                                    </li>
-                                {% endif %}
-                            </ul>
-                        </div>
-
                     {% else %}
                         <p>Нет товаров, соответствующих фильтрам.</p>
                     {% endif %}
+
                 </div>
             </main>
+
         </div>
     </div>
+</div>
+
+<div class="site-section-pag">
+    <ul class="page">
+        {% if products.has_previous %}
+            <li class="page__btn active">
+                <a href="{% preserve_query_params page=products.previous_page_number %}">
+                    <span class="material-icons">chevron_left</span>
+                </a>
+            </li>
+        {% endif %}
+
+        {% for num in products.paginator.page_range %}
+            <li class="page__numbers {% if num == products.number %}active{% endif %}">  
+                <a href="{% preserve_query_params page=num %}">{{ num }}</a>
+            </li>
+        {% endfor %}
+
+        {% if products.has_next %}
+            <li class="page__btn active">
+                <a href="{% preserve_query_params page=products.next_page_number %}">
+                    <span class="material-icons">chevron_right</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
 </div>
 
 <script>

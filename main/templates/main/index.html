@@ -10,35 +10,26 @@
   <div class="box-92819">
     <div class="owl-carousel slide-one-item-alt-text">
 
+      {% for slide in slides %}
+        <div>
+        <h1 class="mb-3">{{ slide.content|safe }}</span></h1>
+          <p class="mb-0"><a href="{{ slide.link }}" class="btn btn-primary rounded-0">Подробнее</a></p>
+        </div>
+      {% endfor %}
+
       <div>
         <h1 class="text-uppercase mb-3">Добро пожаловать в <span style="color: #43ab92;">koloristika</span></h1>
         <p class="mb-5">Стиль, уход и профессионализм. Мы создаем образы, подчеркивающие вашу индивидуальность</p>
         <p class="mb-0"><a href="#" class="btn btn-primary rounded-0">Подробнее</a></p>
       </div>
 
-      <div>
-        <h1 class="text-uppercase mb-3">Современные техники окрашивания</h1>
-        <p class="mb-5">Наши мастера используют только профессиональные красители и уходовые средства для сохранения здоровья волос.</p>
-        <p class="mb-0"><a href="#" class="btn btn-primary rounded-0">Узнать больше</a></p>
-      </div>
-
-      <div>
-        <h1 class="text-uppercase mb-3">Вдохновение и красота в каждой детали</h1>
-        <p class="mb-5">От стрижки до ламинирования ресниц – доверьтесь профессионалам и создайте неповторимый образ.</p>
-        <p class="mb-0"><a href="#" class="btn btn-primary rounded-0">Записаться</a></p>
-      </div>
-      
-
     </div>
   </div>
 
-
-  <!-- Carousel images -->
   <div class="owl-carousel owl-1 ">
-    <div class="ftco-cover-1" style="background-image: url('{% static "images/hero_1.jpg" %}')"></div>
-    <div class="ftco-cover-1" style="background-image: url('{% static "images/hero_2.jpg" %}')"></div>
-    <div class="ftco-cover-1" style="background-image: url('{% static "images/hero_3.jpg" %}')"></div>
-    
+    {% for slide in slides %}      
+      <div class="ftco-cover-1" style="background-image: url('{{ slide.slider_photo.url }}')"></div>
+    {% endfor %}  
   </div>
 </div>
 
@@ -93,10 +84,10 @@
       {% for procedure in procedures %}
         <div class="col-lg-6">
             <div class="media-02819">
-                <a href="#" class="img-link">
+                <a href="{{ procedure.get_absolute_url }}" class="img-link">
                     <img src="{{ procedure.image.url }}" alt="{{ procedure.name }}" class="img-fluid">
                 </a>
-                <h3><a href="#">{{ procedure.name }}</a></h3>
+                <h3><a href="{{ procedure.get_absolute_url }}">{{ procedure.name }}</a></h3>
                 <span>{{ procedure.category }}</span>
             </div>
         </div>

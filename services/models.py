@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Categories(models.Model):
@@ -92,6 +93,11 @@ class Products(models.Model):
     show_on_homepage = models.BooleanField(
         default=False, verbose_name="Показывать на главной"
     )
+
+    def get_absolute_url(self):
+        return reverse("services:product", kwargs={"category_slug": self.category.slug, 'product_slug': self.slug})
+    
+    
                                     
     class Meta:
         db_table = 'product'

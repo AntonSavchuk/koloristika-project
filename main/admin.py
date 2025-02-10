@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import SliderContent
+
+@admin.register(SliderContent)
+class SliderContentAdmin(admin.ModelAdmin):
+    list_display = ('content', 'link')
+    search_fields = ('content',)
