@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  {{ title }}
+{% endblock title %} 
+
+{% block extracss %}
+  <link rel="stylesheet" href="{% static "css/login.css" %}">
+{% endblock extracss %}
+
+{% block content %}
+<div class="login-section">
+  <div class="wrapper">
+    <div class="title"><span>Регистриция</span></div>
+    <form action="#">
+      <div class="row">
+        <i class="fas fa-user"></i>
+        <input type="text" placeholder="Email или телефон" required />
+      </div>
+      <div class="row">
+        <i class="fas fa-lock"></i>
+        <input type="password" placeholder="Пароль" required />
+      </div>
+      <div class="row">
+        <i class="fas fa-lock"></i>
+        <input type="password" placeholder="Повторите пароль" required />
+      </div>
+      <div class="row button">
+        <input type="submit" value="Зарегистрироваться" />
+      </div>
+      <div class="signup-link">Знакомы с нами? <a href="{% url 'users:login' %}">Авторизоваться</a></div>
+    </form>
+  </div>
+</div>
+{% endblock content %}
