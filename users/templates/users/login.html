@@ -13,22 +13,35 @@
 <div class="login-section">
   <div class="wrapper">
     <div class="title"><span>Авторизация</span></div>
-    <form action="#">
+    <form action="{% url 'users:login' %}" method="post">
+      {% csrf_token %}
+
       <div class="row">
-        <i class="fas fa-user"></i>
-        <input type="text" placeholder="Email или телефон" required />
+        <i class="fa-regular fa-user icon-form"></i>
+        <input type="text" class="form-input" name="username" value="{% if form.username.value %}{{ form.username.value }}{% endif %}" id="id_username" placeholder="Введите имя пользователя" required>
       </div>
-      <div class="row">
-        <i class="fas fa-lock"></i>
-        <input type="password" placeholder="Пароль" required />
+
+      <div class="row password-row">
+        <i class="fa-solid fa-fingerprint icon-form"></i>
+        <input type="password" class="form-input" name="password" id="id_password" placeholder="Введите пароль" required>
+        <button type="button" class="toggle-password">
+          <i class="fas fa-eye"></i>
+      </button>
       </div>
-      <div class="pass"><a href="#">Забыли пароль?</a></div>
+
+      <div class="pass"><a href="#">Забыли пароль?</a></div> 
       <div class="row button">
         <input type="submit" value="Войти" />
       </div>
-      <div class="signup-link">Не знакомы с нами? <a href="{% url 'users:registration' %}">Зарегистрироваться</a></div>
+
+        <div class="signup-link">Не знакомы с нами? <a href="{% url 'users:registration' %}">Создать аккаунт</a></div>
+        
     </form>
   </div>
 </div>
 {% endblock content %}
+
+{% block jsblock %}
+  <script src="{% static "js/login.js" %}"></script> 
+{% endblock jsblock %}
 
