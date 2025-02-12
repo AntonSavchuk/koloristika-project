@@ -1,5 +1,10 @@
 {% extends "base.html" %}
+{% load static %}
 {% load pagination_tags %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static "css/price.css" %}">
+{% endblock extracss %}
 
 {% block content %}
 <div class="site-section">

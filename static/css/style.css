@@ -2499,15 +2499,12 @@ h5,
 .category-name a {
   position: relative;
   color: black;
-  /* Изначальный цвет текста */
   text-decoration: none;
   transition: color 0.4s ease-in-out;
-  /* Плавный переход цвета */
 }
 
 .category-name a:hover {
   color: #43ab92;
-  /* Цвет при наведении */
 }
 
 .descr-services {
