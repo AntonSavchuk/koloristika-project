@@ -1,0 +1,131 @@
+.service-block-cover .ftco-service-image-1 {
+  margin-top: -70px;
+  position: static; 
+}
+
+.service-cover {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: relative; 
+}
+
+.service-cover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.service-cover, .service-cover .container > .row {
+  height: 50vh;
+  min-height: 300px; 
+}
+
+.service-cover > .container {
+  position: relative; 
+}
+
+.service-cover.overlay {
+  position: relative; 
+}
+
+.service-cover.overlay:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: .5;
+  background: #000; 
+}
+
+.service-cover.overlay h1 {
+  color: #fff;
+  font-size: 3rem; 
+}
+
+.service-cover.overlay p {
+  color: #fff; 
+}
+
+.service-cover.overlay p a {
+  color: #fff;
+  font-weight: 700; 
+}
+
+.service-cover.overlay p a:hover {
+  text-decoration: none; 
+}
+
+.service-cover.overlay form .form-control,
+.service-cover.overlay form .btn {
+  height: 55px;
+  border-radius: 4px; 
+}
+
+.service-cover.overlay form .form-control {
+  padding-left: 20px;
+  padding-right: 20px;
+  border-color: transparent;
+  margin-right: 10px; 
+}
+
+.service-cover.overlay form .btn {
+  border-color: transparent; 
+}
+
+/* Общие стили блока */
+.service-block {
+  position: relative;
+  background: #f8f8f8; 
+  padding: 25px 30px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: color 0.5s ease-in-out;
+}
+
+/* Добавляем псевдоэлемент для анимации фона */
+.service-block::after {
+  content: "";
+  background: #86d9c6;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -100%;
+  width: 100%;
+  z-index: 0;
+  transition: left 0.6s ease-in-out;
+}
+
+/* При наведении фон заполняет блок */
+.service-block:hover::after {
+  left: 0;
+}
+
+/* Стиль текста */
+.service-block h3 {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 16px;
+  position: relative;
+  z-index: 1;
+  color: #0eb58f;
+  transition: color 0.5s ease-in-out;
+}
+
+
+
+
+
+
+
