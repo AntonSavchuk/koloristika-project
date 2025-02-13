@@ -142,6 +142,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),  # Глобальная папка статических файлов
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 MEDIA_URL = 'media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'

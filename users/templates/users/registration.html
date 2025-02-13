@@ -12,28 +12,28 @@
 {% block content %}
 <div class="login-section">
   <div class="wrapper">
-    <div class="title"><span>Регистриция</span></div>
-    <form action="#">
-      <div class="row">
-        <i class="fas fa-user"></i>
-        <input type="text" placeholder="Имя" required />
-      </div>
-      <div class="row">
-        <i class="fa-regular fa-user"></i>
-        <input type="text" placeholder="Фамилия" required />
-      </div>
-      <div class="row">
-        <i class="fa-regular fa-user"></i>
-        <input type="text" placeholder="Email или телефон" required />
-      </div>
-      <div class="row">
-        <i class="fas fa-lock"></i>
-        <input type="password" placeholder="Пароль" required />
-      </div>
-      <div class="row">
-        <i class="fas fa-lock"></i>
-        <input type="password" placeholder="Повторите пароль" required />
-      </div>
+    <div class="title"><span>Регистрация</span></div>
+    <form action="{% url 'users:registration' %}" method="post">
+      {% csrf_token %}
+    
+      {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+          <p style="color: red;">{{ error }}</p>
+        {% endfor %}
+      {% endif %}
+    
+      {% for field in form %}
+        <div class="row">
+          <i class="fas fa-user"></i>
+          <input id="id_{{ field.name }}" name="{{ field.name }}" 
+                value="{{ field.value|default_if_none:'' }}" 
+                type="{% if 'password' in field.name %}password{% else %}{{ field.field.widget.input_type }}{% endif %}" 
+                placeholder="{{ field.label }}" required />
+        </div>
+        {% for error in field.errors %}
+          <p style="color: red;">{{ error }}</p>
+        {% endfor %}
+      {% endfor %}
       <div class="row button">
         <input type="submit" value="Зарегистрироваться" />
       </div>

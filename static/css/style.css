@@ -728,6 +728,25 @@ h5,
   color: #43ab92;
 }
 
+.profile-link {
+  border: 2px solid #43ab92;
+  border-radius: 20px;
+  padding: 0 15px;
+  transition: all 0.3s ease-in-out;
+}
+
+.profile-link:hover {
+  background-color: #43ab92; 
+}
+
+.profile-link > a {
+  color: #43ab92 !important;
+}
+
+.profile-link:hover > a {
+  color: white !important;
+}
+
 .site-navbar .site-navigation .site-menu>li.active>a {
   color: #43ab92 !important;
 }
@@ -987,6 +1006,23 @@ h5,
 
 .site-mobile-menu .site-nav-wrap li .nav-link.active {
   color: #43ab92;
+}
+
+.login-link {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 2px solid #43ab92;
+  border-radius: 25px;
+  font-size: 16px;
+  text-align: center;
+  color: #43ab92 !important;
+  transition: all 0.3s ease-in-out;
+}
+
+.login-link:hover {
+  background-color: #43ab92;
+  color: white !important;
+  box-shadow: 0px 4px 10px rgba(67, 171, 146, 0.3);
 }
 
 .site-mobile-menu .site-nav-wrap li.active>a {

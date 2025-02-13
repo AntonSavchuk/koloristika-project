@@ -51,7 +51,7 @@
 
       <header class="site-navbar site-navbar-target bg-white" role="banner">
 
-        <div class="container">
+        <div class="container-sm">
           <div class="row align-items-center position-relative">
 
             <div class="col-lg-4">
@@ -74,10 +74,14 @@
             <div class="col-lg-4">
               <nav class="site-navigation text-left mr-auto " role="navigation">
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li><a href="about.html" class="nav-link">О нас</a></li>
+                  <li><a href="{% url 'main:about' %}" class="nav-link">О нас</a></li>
                   <li><a href="blog.html" class="nav-link">Блог</a></li>
                   <li><a href="contact.html" class="nav-link">Контакты</a></li>
-                  <li><a href="{% url 'users:login' %}" class="nav-link">Войти</a></li>
+                  {% if not user.is_authenticated %}
+                    <li class="profile-link"><a href="{% url 'users:login' %}" class="nav-link">Войти</a></li>
+                  {% else %}
+                  <li class="profile-link"><a href="{% url 'users:login' %}" class="nav-link">Профиль</a></li>
+                  {% endif %}
                 </ul>
               </nav>
             </div>
