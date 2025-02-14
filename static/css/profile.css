@@ -1,9 +1,8 @@
-/* Основной контейнер */
+
 .profile-container {
     max-width: 900px;
 }
 
-/* Карточка профиля */
 .profile-card {
     padding: 20px;
     background: #ffffff;
@@ -24,7 +23,6 @@
     width: 100%;
 }
 
-/* Форма редактирования */
 .profile-edit-card {
     background: #ffffff;
     border-radius: 10px;
@@ -41,7 +39,6 @@
     border-top-right-radius: 10px;
 }
 
-/* Поля ввода */
 .input-group-text {
     background: #43ab92;
     color: #fff;
@@ -58,7 +55,6 @@
     box-shadow: 0 0 5px rgba(67, 171, 146, 0.5);
 }
 
-/* Кнопки */
 .btn-primary {
     background: #43ab92;
     border: none;
@@ -68,14 +64,12 @@
     background: #368a75;
 }
 
-/* Ошибки */
 .error-message {
     color: red;
     font-size: 14px;
     margin-top: -10px;
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
     .profile-container {
         max-width: 100%;

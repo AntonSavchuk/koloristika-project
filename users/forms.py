@@ -54,7 +54,7 @@ class ProfileForm(UserChangeForm):
             'email',
         )
 
-    image = forms.ImageField()
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    email = forms.EmailField()
+    image = forms.ImageField(required=False)
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
