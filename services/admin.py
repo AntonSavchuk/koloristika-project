@@ -1,11 +1,35 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from .models import Categories, Products, ProductsExample, HairLength, Masters, Price
 
 @admin.register(Categories)
 class CategoriesAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('name',)}
-    list_display = ('name', 'slug')
+    list_display = ("name", "category_icon", "category_background")
+    fields = ("name", "slug", "svg_image", "preview_icon", "bg_image", "preview_background")
+    
+    readonly_fields = ("preview_icon", "preview_background")
+
+    def category_icon(self, obj):
+        if obj.svg_image:
+            return mark_safe(f'<img src="/static/{obj.svg_image}" width="40" height="40">')
+        return "Нет иконки"
+
+    def category_background(self, obj):
+        if obj.bg_image:
+            return mark_safe(f'<img src="{obj.bg_image.url}" width="100">')
+        return "Нет фона"
+
+    def preview_icon(self, obj):
+        return self.category_icon(obj)
+
+    def preview_background(self, obj):
+        return self.category_background(obj)
+
+    category_icon.short_description = "Иконка"
+    category_background.short_description = "Фоновое изображение"
+
+
 
 
 @admin.register(Products)

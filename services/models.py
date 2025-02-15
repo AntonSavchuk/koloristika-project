@@ -9,8 +9,11 @@ class Categories(models.Model):
     slug = models.SlugField(
         max_length=200, verbose_name='URL', unique=True, null=True, blank=True
     )
-    svg_image = models.FileField(
-        upload_to='svg_images', blank=True, null=True, verbose_name='Фото'
+    svg_image = models.CharField(
+        max_length=255, verbose_name="Путь к SVG-иконке", help_text="Пример: 'icons/brows.svg'", default='fonts/flaticon/svg/default.svg'
+    )
+    bg_image = models.FileField(
+        upload_to='categories/', blank=True, null=True, verbose_name='Фоновое изображение'
     )
     short_description = models.TextField(
         blank=True, null=True, verbose_name='Краткое описание'

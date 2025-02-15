@@ -1008,6 +1008,10 @@ h5,
   color: #43ab92;
 }
 
+.site-mobile-menu .site-nav-wrap li .nav-link:hover {
+  color: #43ab92;
+}
+
 .login-link {
   display: inline-block;
   padding: 10px 20px;

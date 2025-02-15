@@ -19,18 +19,17 @@
   </div>
 
   <div class="row">
-    {% for info in categories %}
-      <!-- Товар -->
-      <div class="col-md-6 mb-4 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|divisibleby:3|yesno:'0,100,200' }}">
-        <div class="service-29193 text-center">
-          <span class="img-wrap mb-5">
-            <img src="{{ info.svg_image.url }}" alt="Image" class="img-fluid">
-          </span>
-          <h3 class="category-name mb-4"><a href="{% url 'services:service' info.slug%}">{{ info.name }}</a></h3>
+    {% for category in categories %}
+        <div class="col-md-6 mb-4 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|divisibleby:3|yesno:'0,100,200' }}">
+          <div class="service-29193 text-center">
+            <span class="img-wrap mb-5">
+              <img src="{% static category.svg_image %}" alt="{{ category.name }}" class="">
+            </span>
+            <h3 class="category-name mb-4"><a href="{% url 'services:service' category.slug%}">{{ category.name }}</a></h3>
+            <p>{{ category.description }}</p>
+          </div>
         </div>
-      </div>
-    {% endfor %}
-
+      {% endfor %}
   </div>
 
 </div>

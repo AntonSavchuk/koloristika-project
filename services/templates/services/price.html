@@ -11,36 +11,39 @@
     <div class="container">
         <div class="content-wrapper">
             <aside class="filter-sidebar">
-                <h2>Фильтр</h2>
-                <form id="filter-form" method="GET">
-                    <div class="filter-group">
-                        <h3>Категории</h3>
-                        <select name="category" id="category-filter">
-                            <option value="all" {% if selected_category == "all" %}selected{% endif %}>Все товары</option>
-                            {% for category in categories %}
-                                <option value="{{ category.slug }}" {% if selected_category == category.slug %}selected{% endif %}>
-                                    {{ category.name }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                <button id="toggle-filters" class="toggle-filters">Фильтр</button>
+                <div id="filter-container" class="filter-container">
+                    <h2>Фильтр</h2>
+                    <form id="filter-form" method="GET">
+                        <div class="filter-group">
+                            <label for="category-filter">Категории</label>
+                            <select name="category" id="category-filter">
+                                <option value="all" {% if selected_category == "all" %}selected{% endif %}>Все товары</option>
+                                {% for category in categories %}
+                                    <option value="{{ category.slug }}" {% if selected_category == category.slug %}selected{% endif %}>
+                                        {{ category.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
 
-                    <div class="filter-group">
-                        <h3>Мастера</h3>
-                        <select name="master" id="master-filter">
-                            <option value="all" {% if selected_master == "all" %}selected{% endif %}>Все мастера</option>
-                            {% for level in master_levels %}
-                                <option value="{{ level }}" {% if selected_master == level %}selected{% endif %}>
-                                    {{ level }}
-                                </option>
-                            {% endfor %}
-                        </select>                        
-                    </div>
+                        <div class="filter-group">
+                            <label for="master-filter">Мастера</label>
+                            <select name="master" id="master-filter">
+                                <option value="all" {% if selected_master == "all" %}selected{% endif %}>Все мастера</option>
+                                {% for level in master_levels %}
+                                    <option value="{{ level }}" {% if selected_master == level %}selected{% endif %}>
+                                        {{ level }}
+                                    </option>
+                                {% endfor %}
+                            </select>                        
+                        </div>
 
-                    <div class="filter-buttons">
-                        <button type="button" id="reset-filters" class="reset-filters">Сбросить все</button>
-                    </div>
-                </form>
+                        <div class="filter-buttons">
+                            <button type="button" id="reset-filters" class="reset-filters">Сбросить</button>
+                        </div>
+                    </form>
+                </div>
             </aside>
 
             <main class="price-list">
@@ -69,7 +72,7 @@
                                                     {% endif %}
                                                 </span>
                                             {% else %}
-                                                <span>
+                                                <span class="regular-price">
                                                     {% if item.min_price != item.max_price %}
                                                         {{ item.min_price }} - {{ item.max_price }} ₽
                                                     {% else %}
@@ -85,10 +88,8 @@
                     {% else %}
                         <p>Нет товаров, соответствующих фильтрам.</p>
                     {% endif %}
-
                 </div>
             </main>
-
         </div>
     </div>
 </div>
@@ -101,12 +102,28 @@
                     <span class="material-icons">chevron_left</span>
                 </a>
             </li>
+        {% else %}
+            <li class="page__btn">
+                <span class="material-icons">chevron_left</span>
+            </li>
         {% endif %}
 
         {% for num in products.paginator.page_range %}
-            <li class="page__numbers {% if num == products.number %}active{% endif %}">  
-                <a href="{% preserve_query_params page=num %}">{{ num }}</a>
-            </li>
+            {% if num == products.number %}
+                <li class="page__numbers active">
+                    <a href="{% preserve_query_params page=num %}">{{ num }}</a>
+                </li>
+            {% elif num > products.number|add:"-3" and num < products.number|add:"3" %}
+                <li class="page__numbers">
+                    <a href="{% preserve_query_params page=num %}">{{ num }}</a>
+                </li>
+            {% elif num == 1 or num == products.paginator.num_pages %}
+                <li class="page__numbers">
+                    <a href="{% preserve_query_params page=num %}">{{ num }}</a>
+                </li>
+            {% elif num == products.number|add:"-3" or num == products.number|add:"3" %}
+                <li class="page__dots">...</li>
+            {% endif %}
         {% endfor %}
 
         {% if products.has_next %}
@@ -115,6 +132,10 @@
                     <span class="material-icons">chevron_right</span>
                 </a>
             </li>
+        {% else %}
+            <li class="page__btn">
+                <span class="material-icons">chevron_right</span>
+            </li>
         {% endif %}
     </ul>
 </div>
@@ -122,6 +143,8 @@
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("filter-form");
+    const filterContainer = document.getElementById("filter-container");
+    const toggleFilters = document.getElementById("toggle-filters");
 
     function applyFilter() {
         form.submit();
@@ -133,6 +156,12 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("reset-filters").addEventListener("click", function() {
         window.location.href = window.location.pathname;
     });
+
+    toggleFilters.addEventListener("click", function() {
+        filterContainer.classList.toggle("active");
+        filterContainer.style.display = filterContainer.classList.contains("active") ? "block" : "none";
+    });
 });
 </script>
+
 {% endblock %}

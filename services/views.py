@@ -122,6 +122,7 @@ def service_detail(request, slug):
 
 
 def product_detail(request, category_slug, product_slug):
+    category = get_object_or_404(Categories, slug=category_slug)
     product = get_object_or_404(Products, slug=product_slug, category__slug=category_slug)
     prices = Price.objects.filter(product=product).prefetch_related("masters", "hair_length")
     examples = ProductsExample.objects.filter(product=product)
@@ -172,6 +173,7 @@ def product_detail(request, category_slug, product_slug):
 
     context = {
         "title": f"KOLORISTIKA - {product.name}",
+        "category": category,
         "product": product,
         "examples": examples,
         "prices": dict(price_data),
