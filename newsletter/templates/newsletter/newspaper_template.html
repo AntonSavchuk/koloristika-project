@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .content { padding: 20px; max-width: 600px; margin: auto; }
+    </style>
+</head>
+<body>
+    <h2>{{ newsletter.title }}</h2>
+    <div class="content">
+        {{ newsletter.content|safe }}
+    </div>
+</body>
+</html>

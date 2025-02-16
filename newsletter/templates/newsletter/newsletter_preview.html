@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2 class="text-center">Предпросмотр рассылки</h2>
+
+    <div class="preview-container" style="
+        max-width: 600px; 
+        margin: auto; 
+        padding: 20px; 
+        text-align: center;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        {% if newsletter.background_image %} background: url('{{ newsletter.background_image.url }}') no-repeat center center; background-size: cover; {% endif %}
+    ">
+        <h3 style="color: {{ newsletter.text_color }};">{{ newsletter.title }}</h3>
+        
+        <div style="font-size: {{ newsletter.font_size }}px; color: {{ newsletter.text_color }}; text-align: left; padding: 15px; background: rgba(255, 255, 255, 0.8); border-radius: 5px;">
+            {{ newsletter.content|safe }}
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <!-- <a href="{% url 'newsletter:edit_newsletter' newsletter.id %}" class="btn btn-warning">Редактировать</a> -->
+        
+        <!-- <form method="post" action="{% url 'newsletter:send_newsletter' newsletter.id %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Отправить</button>
+        </form> -->
+    </div>
+</div>
+{% endblock %}

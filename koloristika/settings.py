@@ -48,10 +48,13 @@ INSTALLED_APPS = [
 
     "django_telegram_login",
     "debug_toolbar",
+    'ckeditor',
+    'ckeditor_uploader',
     
     "main.apps.MainConfig",
     "services.apps.ServicesConfig",
     "users.apps.UsersConfig",
+    "newsletter.apps.NewsletterConfig",
 ]
 
 MIDDLEWARE = [
@@ -101,6 +104,20 @@ DATABASES = {
     }
 }
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Full',
+        'height': 400,
+        'width': '100%',
+        'extraPlugins': ','.join([
+            'uploadimage',  # Поддержка загрузки изображений
+            'autogrow',  # Автоматическое изменение высоты
+        ]),
+        'filebrowserUploadUrl': '/ckeditor/upload/',
+        'filebrowserUploadMethod': 'form',
+    },
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -147,6 +164,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = 'media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
