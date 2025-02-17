@@ -21,12 +21,9 @@
     </div>
 
     <div class="text-center mt-4">
-        <!-- <a href="{% url 'newsletter:edit_newsletter' newsletter.id %}" class="btn btn-warning">Редактировать</a> -->
-        
-        <!-- <form method="post" action="{% url 'newsletter:send_newsletter' newsletter.id %}" style="display: inline;">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-success">Отправить</button>
-        </form> -->
+        <a href="{% url 'newsletter:edit_newsletter' newsletter.id %}" class="btn btn-warning">Редактировать</a>
+
+        <a href="{% url 'newsletter:newsletter_list' %}" class="btn btn-primary"Сохранить></a>
     </div>
 </div>
 {% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Редактировать рассылку</h2>
+    
+    <div class="preview-container" style="
+        max-width: 600px; 
+        margin: auto; 
+        padding: 20px; 
+        text-align: center;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        {% if newsletter.background_image %} background: url('{{ newsletter.background_image.url }}') no-repeat center center; background-size: cover; {% endif %}
+    ">
+        <h3 style="color: {{ newsletter.text_color }};">{{ newsletter.title }}</h3>
+        
+        <div style="font-size: {{ newsletter.font_size }}px; color: {{ newsletter.text_color }}; text-align: left; padding: 15px; background: rgba(255, 255, 255, 0.8); border-radius: 5px;">
+            {{ newsletter.content|safe }}
+        </div>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" class="mt-4">
+        {% csrf_token %}
+        {{ form.media }}
+        <div class="form-group">
+            <label>Заголовок:</label>
+            {{ form.title }}
+        </div>
+        <div class="form-group">
+            <label>Размер шрифта:</label>
+            {{ form.font_size }}
+        </div>
+        <div class="form-group">
+            <label>Цвет текста:</label>
+            {{ form.text_color }}
+        </div>
+        <div class="form-group">
+            <label>Фоновое изображение:</label>
+            {{ form.background_image }}
+            {% if newsletter.background_image %}
+                <img src="{{ newsletter.background_image.url }}" alt="Текущий фон" style="max-width: 100%; margin-top: 10px;">
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label>Контент письма:</label>
+            {{ form.content }}
+        </div>
+        <button type="submit" class="btn btn-success">Сохранить изменения</button>
+    </form>
+</div>
+{% endblock %}

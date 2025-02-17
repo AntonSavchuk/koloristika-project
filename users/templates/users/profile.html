@@ -42,7 +42,7 @@
                             <a href="{% url 'admin:index' %}" class="btn btn-primary mt-2">Админ панель</a>
                         {% endif %}
                         {% if user.is_superuser %}
-                            <a href="{% url 'newsletter:create_newsletter' %}" class="btn btn-primary mt-2">Редактировать рассылку</a>
+                            <a href="{% url 'newsletter:newsletter_list' %}" class="btn btn-primary mt-2">Просмотр рассылок</a>
                         {% endif %}
                     </div>
                 </div>

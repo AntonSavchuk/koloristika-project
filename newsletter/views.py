@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import NewsletterForm
 # from .tasks import send_newsletter_task
@@ -7,13 +7,16 @@ from .models import Newsletter
 @login_required
 def create_newsletter(request):
     if not request.user.is_superuser:
-        return redirect('home')
+        return redirect('main:index')
 
     if request.method == "POST":
-        form = NewsletterForm(request.POST)
+        form = NewsletterForm(request.POST, request.FILES)
         if form.is_valid():
             newsletter = form.save()
-            return redirect('newsletter:preview_newsletter', newsletter_id=newsletter.id)
+            print(f"Newsletter {newsletter.id} saved successfully!")
+            return redirect('newsletter:newsletter_list')
+        else:
+            print("Form is not valid:", form.errors) 
     else:
         form = NewsletterForm()
 
@@ -26,4 +29,33 @@ def preview_newsletter(request, newsletter_id):
 
 @login_required
 def edit_newsletter(request, newsletter_id):
-    ...
+    if not request.user.is_superuser:
+        return redirect('main:index')
+
+    newsletter = get_object_or_404(Newsletter, id=newsletter_id)
+
+    if request.method == "POST":
+        form = NewsletterForm(request.POST, request.FILES, instance=newsletter)
+        if form.is_valid():
+            form.save()
+            return redirect('newsletter:preview_newsletter', newsletter_id=newsletter.id)
+    else:
+        form = NewsletterForm(instance=newsletter)
+
+    context = {
+        'form': form,
+        'newsletter': newsletter,
+    }
+
+    return render(request, 'newsletter/edit_newsletter.html', context)
+
+@login_required
+def newsletter_list(request):
+    if not request.user.is_superuser:
+        return redirect('main:index')
+    
+    newsletters = Newsletter.objects.all().order_by('-created_at')
+    context = {
+        'newsletters': newsletters
+    }
+    return render(request, 'newsletter/newsletter_list.html', context)
