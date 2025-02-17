@@ -1,5 +1,8 @@
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
 from .forms import NewsletterForm
 # from .tasks import send_newsletter_task
 from .models import Newsletter
@@ -12,6 +15,15 @@ def create_newsletter(request):
     if request.method == "POST":
         form = NewsletterForm(request.POST, request.FILES)
         if form.is_valid():
+            newsletter = form.save(commit=False)
+
+
+            if not newsletter.font_size:
+                newsletter.font_size = 16
+            
+            if not newsletter.text_color:
+                newsletter.text_color = "#000000"
+
             newsletter = form.save()
             print(f"Newsletter {newsletter.id} saved successfully!")
             return redirect('newsletter:newsletter_list')
@@ -48,6 +60,19 @@ def edit_newsletter(request, newsletter_id):
     }
 
     return render(request, 'newsletter/edit_newsletter.html', context)
+
+@login_required
+def delete_newsletter(request, newsletter_id):
+    if not request.user.is_superuser:
+        return JsonResponse({'error': 'Доступ запрещен'}, status=403)
+
+    newsletter = get_object_or_404(Newsletter, id=newsletter_id)
+
+    if request.method == "POST":
+        newsletter.delete()
+        return JsonResponse({'success': True, 'message': 'Рассылка удалена!'})
+
+    return JsonResponse({'error': 'Неверный метод'}, status=400)
 
 @login_required
 def newsletter_list(request):

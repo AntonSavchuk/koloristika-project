@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
 <div class="container">
     <h2>Список рассылок</h2>
+
     <table class="table">
         <thead>
             <tr>
@@ -12,12 +15,13 @@
         </thead>
         <tbody>
             {% for newsletter in newsletters %}
-            <tr>
+            <tr id="newsletter-{{ newsletter.id }}">
                 <td>{{ newsletter.title }}</td>
                 <td>{{ newsletter.created_at|date:"d.m.Y H:i" }}</td>
                 <td>
                     <a href="{% url 'newsletter:preview_newsletter' newsletter.id %}" class="btn btn-info">Просмотр</a>
                     <a href="{% url 'newsletter:edit_newsletter' newsletter.id %}" class="btn btn-warning">Редактировать</a>
+                    <button class="btn btn-danger delete-newsletter" data-id="{{ newsletter.id }}">Удалить</button>
                 </td>
             </tr>
             {% endfor %}
@@ -26,4 +30,8 @@
 
     <a href="{% url 'newsletter:create_newsletter' %}" class="btn btn-primary">Создать новую рассылку</a>
 </div>
+{% endblock %}
+
+{% block extrajs %}
+    <script src="{% static "js/ajax.js" %}"></script>
 {% endblock %}
