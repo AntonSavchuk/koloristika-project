@@ -78,10 +78,12 @@
                   <li><a href="{% url 'main:about' %}" class="nav-link">О нас</a></li>
                   <li><a href="blog.html" class="nav-link">Блог</a></li>
                   <li><a href="contact.html" class="nav-link">Контакты</a></li>
-                  {% if not user.is_authenticated %}
-                    <li class="profile-link"><a href="{% url 'users:login' %}" class="nav-link">Войти</a></li>
+                  {% if user.is_authenticated %}
+                    <li class="profile-link"><a href="{% url 'account_profile' %}" class="nav-link">Профиль</a></li>
+                    <li class="profile-link"><a href="{% url 'account_logout' %}" class="nav-link">Выйти</a></li>
                   {% else %}
-                  <li class="profile-link"><a href="{% url 'users:profile' %}" class="nav-link">Профиль</a></li>
+                    <li class="profile-link"><a href="{% url 'account_login' %}" class="nav-link">Войти</a></li>
+                    <li class="profile-link"><a href="{% url 'account_signup' %}" class="nav-link">Регистрация</a></li>
                   {% endif %}
                 </ul>
               </nav>
