@@ -20,12 +20,14 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 from . import settings
+from users.views import profile_view
 
 urlpatterns = [
     path("", include("main.urls", namespace='main')),
     path("services/", include("services.urls", namespace='services')),
-    path('user/', include("users.urls", namespace='users')),
-     path('newsletter/', include('newsletter.urls', namespace='newsletter')),
+    path('newsletter/', include('newsletter.urls', namespace='newsletter')),
+    path('accounts/', include('allauth.urls')),
+    path("profile/", profile_view, name="account_profile"),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path("admin/", admin.site.urls),
 ]
