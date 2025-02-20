@@ -1,9 +1,11 @@
+from django.contrib import messages
 from django.shortcuts import render
 from allauth.account.views import LoginView
 from django.contrib.auth.decorators import login_required
 
 @login_required
 def profile_view(request):
+    messages.get_messages(request).used = True
     return render(request, "account/profile.html")
 
 class CustomLoginVew(LoginView):

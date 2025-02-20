@@ -13,6 +13,7 @@ import os
 from dotenv import load_dotenv
 
 from pathlib import Path
+from django.contrib.messages import constants as messages
 
 
 load_dotenv()
@@ -49,6 +50,15 @@ ACCOUNT_FORMS = {
     'signup': 'users.forms.CustomSignupForm',
 }
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',
+}
 
 # Application definition
 
@@ -210,5 +220,4 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
-ACCOUNT_LOGOUT_ON_GET = False
-SITE_ID = 1
+ACCOUNT_LOGOUT_ON_GET = True
