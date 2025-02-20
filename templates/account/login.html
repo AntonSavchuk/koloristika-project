@@ -25,19 +25,30 @@
       {% endif %}
 
       {% for field in form %}
-        <div class="row">
-          <i class="fas {% if 'password' in field.name %}fa-lock{% else %}fa-user{% endif %}"></i>
-          <input id="id_{{ field.name }}" name="{{ field.name }}" 
-                value="{{ field.value|default_if_none:'' }}" 
-                type="{% if 'password' in field.name %}password{% else %}{{ field.field.widget.input_type }}{% endif %}" 
-                placeholder="{{ field.label }}" required />
-        </div>
-        {% for error in field.errors %}
-          <p style="color: red;">{{ error }}</p>
-        {% endfor %}
+        {% if field.name != "remember" %}  {# Исключаем стандартный чекбокс #}
+          <div class="row">
+            <i class="fas {% if 'password' in field.name %}fa-lock{% else %}fa-user{% endif %}"></i>
+            <input id="id_{{ field.name }}" name="{{ field.name }}" 
+                  value="{{ field.value|default_if_none:'' }}" 
+                  type="{{ field.field.widget.input_type }}" 
+                  placeholder="{{ field.label }}" required />
+          </div>
+          {% for error in field.errors %}
+            <p style="color: red;">{{ error }}</p>
+          {% endfor %}
+        {% endif %}
       {% endfor %}
 
-      <div class="pass"><a href="{% url 'account_reset_password' %}">Забыли пароль?</a></div> 
+      <div class="remember-pass-container">
+        <div class="checkbox-row">
+          <input type="checkbox" id="id_remember" name="remember" />
+          <label for="id_remember">Запомнить меня</label>
+        </div>
+        <div class="pass">
+          <a href="{% url 'account_reset_password' %}">Забыли пароль?</a>
+        </div>
+      </div>    
+
       <div class="row button">
         <input type="submit" value="Войти" />
       </div>

@@ -85,6 +85,66 @@ form .row input::placeholder {
   text-decoration: underline;
 }
 
+.remember-pass-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox-row input[type="checkbox"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #43ab92;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.checkbox-row input[type="checkbox"]:checked {
+  background-color: #43ab92;
+  border-color: #43ab92;
+}
+
+.checkbox-row input[type="checkbox"]:checked::after {
+  content: "✔";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.checkbox-row label {
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+}
+
+.pass {
+  font-size: 16px;
+}
+
+.pass a {
+  color: #16a085;
+  text-decoration: none;
+}
+
+.pass a:hover {
+  text-decoration: underline;
+}
+
+
 .wrapper form .button input {
   margin-top: 20px;
   color: #fff;
