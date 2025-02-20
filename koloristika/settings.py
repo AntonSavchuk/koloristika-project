@@ -206,7 +206,9 @@ AUTH_USER_MODEL = 'users.User'
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+
+SITE_ID = 1
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
@@ -221,3 +223,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_ON_GET = True
+
+# Celery settings
+CELERY_BROKER_URL = "redis://127.0.0.1:6380/0"
+CELERY_EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

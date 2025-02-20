@@ -10,6 +10,14 @@
 {% block content %}
 <div class="site-section">
     <div class="container mt-5">
+
+        {% if not request.user.emailaddress_set.first.verified %}
+            <div class="alert alert-warning">
+                ⚠️ Ваш email <strong>{{ request.user.email }}</strong> не подтвержден. 
+                <a href="{% url 'account_email' %}">Подтвердить сейчас</a>
+            </div>
+        {% endif %}
+
         
         {% if messages %}
         <div class="alert-container">
