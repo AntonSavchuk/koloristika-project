@@ -1,11 +1,17 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 from django.contrib import messages
 
-from .forms import NewsletterForm
-# from .tasks import send_newsletter_task
-from .models import Newsletter
+from allauth.account.models import EmailAddress
+
+from .forms import NewsletterForm, SubscriptionForm
+from .models import Newsletter, Subscription
+
+
+User = get_user_model()
 
 @login_required
 def create_newsletter(request):
@@ -34,10 +40,12 @@ def create_newsletter(request):
 
     return render(request, 'newsletter/create_newsletter.html', {'form': form})
 
+
 @login_required
 def preview_newsletter(request, newsletter_id):
     newsletter = Newsletter.objects.get(id=newsletter_id)
     return render(request, 'newsletter/newsletter_preview.html', {'newsletter': newsletter})
+
 
 @login_required
 def edit_newsletter(request, newsletter_id):
@@ -61,6 +69,7 @@ def edit_newsletter(request, newsletter_id):
 
     return render(request, 'newsletter/edit_newsletter.html', context)
 
+
 @login_required
 def delete_newsletter(request, newsletter_id):
     if not request.user.is_superuser:
@@ -74,6 +83,7 @@ def delete_newsletter(request, newsletter_id):
 
     return JsonResponse({'error': 'Неверный метод'}, status=400)
 
+
 @login_required
 def newsletter_list(request):
     if not request.user.is_superuser:
@@ -84,3 +94,25 @@ def newsletter_list(request):
         'newsletters': newsletters
     }
     return render(request, 'newsletter/newsletter_list.html', context)
+
+
+def subscribe(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+
+        if not email:
+            return JsonResponse({"message": "Введите корректный email!"}, status=400)
+
+        email_exists = EmailAddress.objects.filter(email=email).exists()
+
+        if not email_exists:
+            user = User.objects.filter(email=email).first()
+
+            if user:
+                EmailAddress.objects.create(user=user, email=email, verified=False, primary=False)
+
+            Subscription.objects.get_or_create(email=email)
+
+        return JsonResponse({"message": "Вы успешно подписались на обновления!"})
+
+    return JsonResponse({"message": "Ошибка запроса!"}, status=400)

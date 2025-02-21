@@ -48,6 +48,7 @@
                         <a href="{% url 'account_logout' %}" class="btn btn-danger mt-2">Выйти</a>
                         {% if user.is_superuser %}
                             <a href="{% url 'admin:index' %}" class="btn btn-primary mt-2">Админ панель</a>
+                            <a href="{% url 'newsletter:create_newsletter' %}" class="btn btn-primary mt-2">Добавить рассылку</a>
                         {% endif %}
                     </div>
                 </div>

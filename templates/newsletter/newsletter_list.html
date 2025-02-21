@@ -2,33 +2,35 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
-    <h2>Список рассылок</h2>
+<div class="site-section">
+    <div class="container">
+        <h2>Список рассылок</h2>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Заголовок</th>
-                <th>Дата создания</th>
-                <th>Действия</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for newsletter in newsletters %}
-            <tr id="newsletter-{{ newsletter.id }}">
-                <td>{{ newsletter.title }}</td>
-                <td>{{ newsletter.created_at|date:"d.m.Y H:i" }}</td>
-                <td>
-                    <a href="{% url 'newsletter:preview_newsletter' newsletter.id %}" class="btn btn-info">Просмотр</a>
-                    <a href="{% url 'newsletter:edit_newsletter' newsletter.id %}" class="btn btn-warning">Редактировать</a>
-                    <button class="btn btn-danger delete-newsletter" data-id="{{ newsletter.id }}">Удалить</button>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Заголовок</th>
+                    <th>Дата создания</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for newsletter in newsletters %}
+                <tr id="newsletter-{{ newsletter.id }}">
+                    <td>{{ newsletter.title }}</td>
+                    <td>{{ newsletter.created_at|date:"d.m.Y H:i" }}</td>
+                    <td>
+                        <a href="{% url 'newsletter:preview_newsletter' newsletter.id %}" class="btn btn-info">Просмотр</a>
+                        <a href="{% url 'newsletter:edit_newsletter' newsletter.id %}" class="btn btn-warning">Редактировать</a>
+                        <button class="btn btn-danger delete-newsletter" data-id="{{ newsletter.id }}">Удалить</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-    <a href="{% url 'newsletter:create_newsletter' %}" class="btn btn-primary">Создать новую рассылку</a>
+        <a href="{% url 'newsletter:create_newsletter' %}" class="btn btn-primary">Создать новую рассылку</a>
+    </div>
 </div>
 {% endblock %}
 

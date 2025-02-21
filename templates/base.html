@@ -133,15 +133,48 @@
 
             <div class="mb-5">
               <h2 class="footer-heading mb-4">Подпишитесь на обновления</h2>
-              <form action="#" method="post" class="footer-suscribe-form">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control rounded-0 border-secondary text-white bg-transparent" placeholder="Введите Email" aria-label="Enter Email" aria-describedby="button-addon2">
-                  <div class="input-group-append">
-                    <button class="btn btn-primary text-white" type="button" id="button-addon2">Подписаться</button>
+              <form id="subscribe-form" method="post" class="footer-suscribe-form">
+                  {% csrf_token %}
+                  <div class="input-group mb-3">
+                      <input type="email" id="email-input" name="email" class="form-control rounded-0 border-secondary text-white bg-transparent" placeholder="Введите Email" aria-label="Enter Email" required>
+                      <div class="input-group-append">
+                          <button class="btn btn-primary text-white" type="submit" id="button-addon2">Подписаться</button>
+                      </div>
                   </div>
-                </div>
-            </div>
-
+              </form>
+              <p id="subscribe-message" style="display:none; color:white;"></p>
+          </div>
+          
+          <script>
+          document.getElementById("subscribe-form").addEventListener("submit", function(event) {
+              event.preventDefault();
+          
+              let emailInput = document.getElementById("email-input");
+              let messageElement = document.getElementById("subscribe-message");
+          
+              fetch("{% url 'newsletter:subscribe' %}", {
+                  method: "POST",
+                  headers: {
+                      "X-CSRFToken": "{{ csrf_token }}",
+                      "Content-Type": "application/x-www-form-urlencoded",
+                  },
+                  body: "email=" + encodeURIComponent(emailInput.value),
+              })
+              .then(response => response.json())
+              .then(data => {
+                  messageElement.innerText = data.message;
+                  messageElement.style.display = "block";
+                  messageElement.style.color = "green";  // Зеленый цвет успешного уведомления
+                  emailInput.value = "";  // Очистка поля ввода после подписки
+              })
+              .catch(error => {
+                  messageElement.innerText = "Ошибка подписки!";
+                  messageElement.style.color = "red";
+                  messageElement.style.display = "block";
+              });
+          });
+          </script>
+          
 
             <h2 class="footer-heading mb-4">Следите за нами</h2>
             <a href="#about-section" class="smoothscroll pl-0 pr-3"><span class="icon-facebook"></span></a>

@@ -98,7 +98,7 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
 
 
-    # "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "koloristika.urls"
@@ -142,8 +142,8 @@ CKEDITOR_CONFIGS = {
         'height': 400,
         'width': '100%',
         'extraPlugins': ','.join([
-            'uploadimage',  # Поддержка загрузки изображений
-            'autogrow',  # Автоматическое изменение высоты
+            'uploadimage', 
+            'autogrow',  
         ]),
         'filebrowserUploadUrl': '/ckeditor/upload/',
         'filebrowserUploadMethod': 'form',
